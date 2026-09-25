@@ -44,11 +44,12 @@ struct file_info {
 #endif // FILEINFO
 
 
+size_t open_and_stat(char* file_read_name, file_info* data);
 int text_to_buffer(char* file_read_name, file_info* data);
 void forming_pointers(file_info* data);
 
 
-int main(int argc, char* argv[]) { // td: argc + argv - DONE
+int main(int argc, char* argv[]) {
 
     // Reading from file
 
@@ -81,7 +82,7 @@ int main(int argc, char* argv[]) { // td: argc + argv - DONE
     struct_output_text(file_write, END_SORT, data.string_pointers, data.lines_in_text);
 
     full_qsort(data.string_pointers, 0, data.lines_in_text - 1, sizeof(line_data), &struct_compare_orig);
-    struct_output_text(file_write, ORIG_SORT, data.string_pointers, data.lines_in_text); // TODO: put orig_buffer to file
+    struct_output_text(file_write, ORIG_SORT, data.string_pointers, data.lines_in_text);
 
     buffer_output(file_write, SEC_ORIG_SORT, data.zero_buffer + 1);
 
@@ -111,19 +112,18 @@ int text_to_buffer(char* file_read_name, file_info* data) {
     assert(file_read_name != NULL);
     assert(data != NULL);
 
-    // td: new func for stat - DONE
     data->num_char_in_file = open_and_stat(file_read_name, data);
     data->zero_buffer = (char*) calloc (data->num_char_in_file + 2, sizeof(char));
     data->buffer = (data->zero_buffer) + 1;
 
-    data->num_char_in_file = fread((void*)(data->buffer), sizeof(char), data->num_char_in_file, data->file_read_from); // td: fread -> EOF (assert) - DONE
+    data->num_char_in_file = fread((void*)(data->buffer), sizeof(char), data->num_char_in_file, data->file_read_from);
     assert(data->num_char_in_file != EOF);
 
     data->p_buffer = (char*) realloc ((void*)(data->zero_buffer), sizeof(char) * (data->num_char_in_file + 1)) + 1;
 
     if (data->p_buffer == NULL) {
         printf(RED "ERROR:\n" WHT);
-        printf("File: main_onegin.cpp ; Function: int main() ; Line: 111\n"); // td: __FILE__, __LINE__, __FUNCTION__ + func for vprintf + Warning - DONE
+        printf("File: main_onegin.cpp ; Function: int main() ; Line: 111\n");
         printf("%s", strerror(EADDRNOTAVAIL));
         return EADDRNOTAVAIL;
     }

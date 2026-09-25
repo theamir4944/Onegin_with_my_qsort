@@ -118,7 +118,7 @@ int str_compare_beg(const void* p1, const void* p2) {
 }
 
 
-int str_compare_end(const void* p1, const void* p2) { // td: structs - DONE
+int str_compare_end(const void* p1, const void* p2) {
 
     assert(p1 != NULL && p2 != NULL);
 
@@ -137,7 +137,7 @@ int str_compare_orig(const void* p1, const void* p2) {
     long long index_1 = (long long)*(char**)p1;
     long long index_2 = (long long)*(char**)p2;
 
-    return (index_1 - index_2 > 0) ? 1 : -1; // return index_1 - index_2
+    return (index_1 - index_2 > 0) ? 1 : -1;
 
 }
 

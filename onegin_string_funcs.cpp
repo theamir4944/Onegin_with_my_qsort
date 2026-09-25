@@ -44,7 +44,7 @@ struct file_info {
     char* zero_buffer; //
     char* buffer; //
     char* p_buffer; //
-    FILE* file_read_from;
+    FILE* file_read_from; //
     size_t num_char_in_file; //
     size_t lines_in_text; //
     size_t addr_index; //
@@ -87,7 +87,7 @@ ssize_t my_getline(char** lineptr, size_t* bufsize) {
 
         if (*p != '\0') {
             *bufsize *= 2;
-            p = (char*) realloc (p, *bufsize); // td: realloc and recalloc (realloc + memset) - DONE
+            p = (char*) realloc (p, *bufsize);
 
             if (p != NULL) {
                 p_copy = p;
@@ -209,7 +209,7 @@ int alpha_structcmp(line_data* data_1, line_data* data_2, int direction) {
 
     assert(data_1 != NULL && data_2 != NULL);
 
-    char* str_1 = (direction < 0) ? (data_1->pointer + data_1->line_len - 1) : (data_1->pointer); // td: duration -> direction - DONE
+    char* str_1 = (direction < 0) ? (data_1->pointer + data_1->line_len - 1) : (data_1->pointer);
     char* str_2 = (direction < 0) ? (data_2->pointer + data_2->line_len - 1) : (data_2->pointer);
 
     while (*str_1 != '\0' && *str_2 != '\0') {
