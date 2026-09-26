@@ -40,14 +40,14 @@ struct line_data {
 #ifndef FILEINFO
 #define FILEINFO
 struct file_info {
-    line_data* string_pointers; //
-    char* zero_buffer; //
-    char* buffer; //
-    char* p_buffer; //
-    FILE* file_read_from; //
-    size_t num_char_in_file; //
-    size_t lines_in_text; //
-    size_t addr_index; //
+    line_data* string_pointers;
+    char* zero_buffer;
+    char* buffer;
+    char* p_buffer;
+    FILE* file_read_from;
+    size_t num_char_in_file;
+    size_t lines_in_text;
+    size_t addr_index;
 };
 #endif // FILEINFO
 
@@ -87,7 +87,7 @@ ssize_t my_getline(char** lineptr, size_t* bufsize) {
 
         if (*p != '\0') {
             *bufsize *= 2;
-            p = (char*) realloc (p, *bufsize);
+            p = (char*) realloc (p, *bufsize); // TODO - DONE: realloc or recalloc(realloc + memset) - DONE
 
             if (p != NULL) {
                 p_copy = p;
@@ -115,7 +115,7 @@ ssize_t my_getline(char** lineptr, size_t* bufsize) {
 }
 
 
-int alpha_strcmp(char* str_1, char* str_2, int direction) {
+int alpha_strcmp(char* str_1, char* str_2, int direction) { // TODO - DONE: duration -> direction - DONE
 
     assert(str_1 != NULL && str_2 != NULL);
 
@@ -193,8 +193,14 @@ void output_text(FILE* file_write, char* cliche_text, char** string_address, siz
 
 }
 
+#define SKIP_DUMB_INPUT  while (getchar() != '\n') {;}
 
 char* get_file_name(void) {
+
+    printf ("\nÀ ÏÎ×ÅÌÓ ÍÅ ÓÊÀÇÀË??? À ÍÓ ÂÂÅÄÈ ÎÒÂÅÒ Â ÊÎÄÀÕ ASCII: "); // TODO: ai720 - Ð¾Ð¿Ñ€Ð°Ð²Ð´Ð°Ð½Ð¸Ðµ Ð¾Ð¿Ñ€. Ð´Ð»Ð¸Ð½Ñ‹
+    SKIP_DUMB_INPUT;
+
+    printf ("\nÀ ÒÅÏÅÐÜ ÁÛÑÒÐÎ ÂÂÅË ÈÌß ÔÀÉËÀ: ");
 
     char* file_name = (char*) calloc (20, sizeof(char));
     size_t bufsize_for_getline = sizeof(file_name) / sizeof(char);
@@ -205,7 +211,7 @@ char* get_file_name(void) {
 }
 
 
-int alpha_structcmp(line_data* data_1, line_data* data_2, int direction) {
+int alpha_structcmp(line_data* data_1, line_data* data_2, int direction) { // TODO - DONE: duration -> direction - DONE
 
     assert(data_1 != NULL && data_2 != NULL);
 
